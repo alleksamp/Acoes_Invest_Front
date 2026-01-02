@@ -79,7 +79,6 @@ const deletarAcao = async (id) => {
 
     alert("Ação excluída com sucesso!");
     
-    // 3. Atualizar a lista automaticamente após excluir
     buscarAcoes(); 
     
   } catch (err) {
@@ -152,7 +151,10 @@ return (
                     <td>R${acao.dividendos}</td>
                     <td>R${acao.totalInv}</td>
                     <td>
-                      <button style={{color: 'blue', marginRight: '10px'}}>Editar</button>
+                      <button 
+                        className="btn-editar" 
+                        onClick={() => navigate(`/editar/${acao.Id || acao.id}`)}> Editar
+                      </button>
                       <button 
                         className="btn-excluir" 
                         onClick={() => deletarAcao(acao.Id || acao.id )}> Excluir

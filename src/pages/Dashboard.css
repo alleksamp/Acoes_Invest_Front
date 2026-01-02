@@ -152,3 +152,11 @@
 .btn-excluir:hover{
     background-color: #d1d5db;
 }
+
+.btn-editar{
+    color: #faf601;
+}
+
+.btn-editar:hover{
+    background-color: #d1d5db;
+}

@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import { Dashboard } from './pages/Dashboard';
 import { ProtectedRoute } from './ProtectedRoute';
 import { CadastrarAcao } from './pages/CadastrarAcao/CadastrarAcao';
+import { EditarAcao } from './pages/EditarAcao/EditarAcao';
 
 function App() {
   return (
@@ -27,8 +28,16 @@ function App() {
             </ProtectedRoute>
           }
         />
-        </Routes>
 
+        <Route 
+          path="/editar/:id" 
+          element={
+            <ProtectedRoute>
+              <EditarAcao />
+            </ProtectedRoute>
+          } />
+
+        </Routes>
     </BrowserRouter>
   );
 }
