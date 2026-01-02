@@ -14,8 +14,7 @@ export function Dashboard() {
     navigate('/');
   };
 
-    const buscarAcoes = async () => {
-        alert("Botão clicado!"); 
+    const buscarAcoes = async () => { 
         console.log("Iniciando busca...");
     setCarregando(true);
     try {
@@ -59,6 +58,33 @@ export function Dashboard() {
     alert('Ação não encontrada ou erro na busca.');
   } finally {
     setCarregando(false);
+  }
+};
+
+const deletarAcao = async (id) => {
+  // 1. Pedir confirmação para o usuário
+  if (!window.confirm("Tem certeza que deseja excluir esta ação?")) {
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem('token');
+    
+    // 2. Chamar a API passando o ID como parâmetro de busca (Query String)
+    // De acordo com o Swagger, o nome da rota é: /api/Acoes/Deletar ações
+    await api.delete('/api/Acoes/Deletar', {
+      params: { id: id },
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    alert("Ação excluída com sucesso!");
+    
+    // 3. Atualizar a lista automaticamente após excluir
+    buscarAcoes(); 
+    
+  } catch (err) {
+    console.error("Erro ao excluir:", err);
+    alert("Não foi possível excluir a ação.");
   }
 };
 
@@ -118,7 +144,7 @@ return (
               </thead>
               <tbody>
                 {acoes.map((acao) => (
-                  <tr key={acao.id}>
+                  <tr key={acao.Id || acao.id}>
                     <td>{acao.nome}</td>
                     <td>{acao.quantidade}</td>
                     <td>R${acao.pm}</td>
@@ -127,7 +153,10 @@ return (
                     <td>R${acao.totalInv}</td>
                     <td>
                       <button style={{color: 'blue', marginRight: '10px'}}>Editar</button>
-                      <button style={{color: 'red'}}>Excluir</button>
+                      <button 
+                        className="btn-excluir" 
+                        onClick={() => deletarAcao(acao.Id || acao.id )}> Excluir
+                      </button>
                     </td>
                   </tr>
                 ))}
