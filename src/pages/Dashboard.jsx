@@ -22,7 +22,7 @@ export function Dashboard() {
       const token = localStorage.getItem('token');
       
       // Enviando o token no header Authorization
-      const response = await api.get('/api/Acoes/Listar Ações', {
+      const response = await api.get('/api/Acoes/Listar', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -48,7 +48,7 @@ export function Dashboard() {
     const token = localStorage.getItem('token');
     
     // O Axios enviará como Query String: /api/Acoes/Buscar por nome?nome=Itausa
-    const response = await api.get('/api/Acoes/Buscar por nome', {
+    const response = await api.get('/api/Acoes/BuscarNome', {
       params: { nome: nomeBusca }, // O Axios monta o ?nome=... para você
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -95,7 +95,7 @@ return (
 
           <section className="card">
             <h2 style={{color: '#047857'}}>Operações</h2>
-            <button className="btn-option" style={{color: '#047857', fontWeight: 'bold'}}>
+            <button className="btn-option" onClick={() => navigate('/cadastrar')} style={{color: '#047857', fontWeight: 'bold'}}>
                 ➕ Cadastrar Nova Ação
             </button>
           </section>
@@ -108,18 +108,23 @@ return (
             <table className="acoes-table">
               <thead>
                 <tr>
-                  <th>Código/Nome</th>
-                  <th>Preço</th>
+                  <th>Nome/Código</th>
                   <th>Quantidade</th>
-                  <th>Ações</th>
+                  <th>Preço Médio</th>
+                  <th>Preço Médio IR</th>
+                  <th>Dividendos</th>
+                  <th>Total Investido</th>
                 </tr>
               </thead>
               <tbody>
                 {acoes.map((acao) => (
                   <tr key={acao.id}>
                     <td>{acao.nome}</td>
-                    <td>R${acao.preco}</td>
                     <td>{acao.quantidade}</td>
+                    <td>R${acao.pm}</td>
+                    <td>R${acao.pmIr}</td>
+                    <td>R${acao.dividendos}</td>
+                    <td>R${acao.totalInv}</td>
                     <td>
                       <button style={{color: 'blue', marginRight: '10px'}}>Editar</button>
                       <button style={{color: 'red'}}>Excluir</button>

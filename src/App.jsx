@@ -2,15 +2,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
 import { Dashboard } from './pages/Dashboard';
 import { ProtectedRoute } from './ProtectedRoute';
+import { CadastrarAcao } from './pages/CadastrarAcao/CadastrarAcao';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rota Pública */}
         <Route path="/" element={<LoginPage />} />
 
-        {/* Rota Protegida */}
         <Route 
           path="/dashboard" 
           element={
@@ -19,7 +18,17 @@ function App() {
             </ProtectedRoute>
           } 
         />
-      </Routes>
+
+        <Route
+          path="/cadastrar"
+          element={
+            <ProtectedRoute>
+              <CadastrarAcao />
+            </ProtectedRoute>
+          }
+        />
+        </Routes>
+
     </BrowserRouter>
   );
 }
