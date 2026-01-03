@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
-import './Dashboard.css'; 
+import './Dashboard.css';
+import Swal from 'sweetalert2';
 
 export function Dashboard() {
-    const [acoes, setAcoes] = useState([]); // Estado para guardar a lista
+    const [acoes, setAcoes] = useState([]);
     const [nomeBusca, setNomeBusca] = useState('');
     const [carregando, setCarregando] = useState(false);
     const navigate = useNavigate();
@@ -19,7 +20,6 @@ export function Dashboard() {
     setCarregando(true);
     try {
       const token = localStorage.getItem('token');
-      
       const response = await api.get('/api/Acoes/Listar', {
         headers: {
           Authorization: `Bearer ${token}`
@@ -29,15 +29,27 @@ export function Dashboard() {
       setAcoes(response.data);
     } catch (err) {
       console.error(err);
-      alert('Erro ao buscar ações.');
-    } finally {
-      setCarregando(false);
-    }
-  };
+
+          Swal.fire({
+            title: 'Erro!',
+            text: 'Não foi possível listar as ações.',
+            icon: 'error',
+            confirmButtonColor: '#d33'
+        });
+      } finally {
+          setCarregando(false);
+      }
+
+    };
 
     const buscarPorNome = async () => {
     if (!nomeBusca.trim()) {
-    alert("Digite um nome para buscar.");
+          Swal.fire({
+            title: 'Campo Vazio',
+            text: 'Por favor, digite um nome para buscar.',
+            icon: 'warning',
+            confirmButtonColor: '#3085d6'
+        });
     return;
     } 
 
@@ -50,21 +62,34 @@ export function Dashboard() {
       params: { nome: nomeBusca }, // O Axios monta o ?nome=... para você
       headers: { Authorization: `Bearer ${token}` }
     });
-
     setAcoes(response.data); 
   } catch (err) {
+
     console.error(err);
-    alert('Ação não encontrada ou erro na busca.');
+          Swal.fire({
+            title: 'Não encontrado',
+            text: 'Nenhuma ação foi encontrada com esse nome.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6'
+        });
+
   } finally {
     setCarregando(false);
   }
 };
 
 const deletarAcao = async (id) => {
-  if (!window.confirm("Tem certeza que deseja excluir esta ação?")) {
-    return;
-  }
-
+      Swal.fire({
+        title: 'Tem certeza?',
+        text: "Você não poderá reverter esta ação!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33', // Vermelho para deletar
+        cancelButtonColor: '#3085d6', // Azul para cancelar
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
   try {
     const token = localStorage.getItem('token');
     
@@ -73,14 +98,26 @@ const deletarAcao = async (id) => {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    alert("Ação excluída com sucesso!");
+        Swal.fire(
+          'Excluído!',
+          'A ação foi deletada com sucesso.',
+          'success'
+        );
     
     buscarAcoes(); 
     
   } catch (err) {
     console.error("Erro ao excluir:", err);
-    alert("Não foi possível excluir a ação.");
+
+      Swal.fire({
+        title: 'Erro!',
+        text: 'Não foi possível excluir a ação.',
+        icon: 'error',
+        confirmButtonColor: '#d33'
+      });
+    }
   }
+  });
 };
 
 
@@ -164,5 +201,5 @@ return (
         )}
       </div>
     </div>
-  );
+    );
 }

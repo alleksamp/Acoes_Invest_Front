@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import api from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
+import Swal from 'sweetalert2';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -10,29 +11,49 @@ const LoginPage = () => {
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
   
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setCarregando(true);
-    setErro('');
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setCarregando(true);
+  setErro('');
 
-    try {
-      const response = await api.post('/api/Login/login', {
-        email: email,
-        senha: senha
+  try {
+    const response = await api.post('/api/Login/login', {
+      email: email,
+      senha: senha
       });
 
       const { token } = response.data;
       localStorage.setItem('token', token);
 
-      alert('Login realizado com sucesso!');
-      navigate('/dashboard'); 
+      Swal.fire({
+          title: 'Bem-vindo!',
+          text: 'Login realizado com sucesso.',
+          icon: 'success',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Ir para o Dashboard'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/dashboard');
+          }
+        });
       
-    } catch (err) {
-      setErro(err.response?.data?.message || 'Erro ao conectar com o servidor');
-    } finally {
-      setCarregando(false);
+      } catch (err) {
+        console.error(err);
+        
+        // Alerta de Erro (Substituindo o setErro ou complementando-o)
+        Swal.fire({
+          title: 'Falha no Login',
+          text: err.response?.data?.message || 'E-mail ou senha incorretos.',
+          icon: 'error',
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'Tentar novamente'
+        });
+        
+        setErro(err.response?.data?.message || 'Erro ao conectar com o servidor');
+      } finally {
+        setCarregando(false);
+      }
     }
-  };
 
   return (
     <div className="login-container">

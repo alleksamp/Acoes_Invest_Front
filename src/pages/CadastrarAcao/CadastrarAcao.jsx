@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import './CadastrarAcao.css';
+import Swal from 'sweetalert2';
 
 const formatarMoeda = (valor) => {
     if (valor === undefined || valor === null || valor === "") return "R$ 0,00";
@@ -58,15 +59,32 @@ useEffect(() => {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      alert('Ação cadastrada com sucesso!');
-      navigate('/dashboard');
+      Swal.fire({
+        title: 'Sucesso!',
+        text: 'Ação cadastrada com sucesso!',
+        icon: 'success',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/dashboard');
+        }
+      });
+
     } catch (err) {
       console.error(err);
-      alert('Erro ao cadastrar: verifique se os campos estão corretos.');
-    } finally {
-      setCarregando(false);
-    }
-  };
+
+      Swal.fire({
+      title: 'Erro no Cadastro',
+      text: 'Verifique se os campos estão corretos ou se a ação já existe.',
+      icon: 'error',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Tentar novamente'
+    });
+  } finally {
+    setCarregando(false);
+  }
+};
 
   return (
     <div className="cadastro-container">

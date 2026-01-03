@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import '../CadastrarAcao/CadastrarAcao.css'; 
+import Swal from 'sweetalert2';
 
     const formatarMoeda = (valor) => {
         if (valor === undefined || valor === null || valor === "") return "R$ 0,00";
@@ -35,7 +36,6 @@ export function EditarAcao() {
   useEffect(() => {
     const buscarDados = async () => {
         if (!id || id === "${id}") return;
-
       try {
         const token = localStorage.getItem('token');
         const response = await api.get(`/api/Acoes/BuscarId?id=${id}`, {
@@ -54,8 +54,13 @@ export function EditarAcao() {
         setTotalInv(formatarMoeda((acao.totalInv || acao.TotalInv || 0) * 100));
       } catch (err) {
         console.error("Erro na busca:", err);
-        alert("Erro ao carregar dados da ação.");
-        navigate('/dashboard');
+
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Não foi possível carregar os dados desta ação.',
+                    icon: 'error',
+                    confirmButtonText: 'Voltar'
+                }).then(() => navigate('/dashboard'));
       }
     };
     buscarDados();
@@ -90,14 +95,23 @@ export function EditarAcao() {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      alert("Ação atualizada com sucesso!");
-      navigate('/dashboard');
+            Swal.fire({
+                title: 'Atualizado!',
+                text: 'Os dados foram salvos com sucesso.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6'
+            }).then(() => navigate('/dashboard'));
     } catch (err) {
       console.error(err);
-      alert("Erro ao atualizar ação.");
-    } finally {
-      setCarregando(false);
-    }
+
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Falha ao atualizar a ação.',
+                icon: 'error'
+            });
+        } finally {
+            setCarregando(false);
+        }
   };
 
   return (
