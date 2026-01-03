@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://localhost:7xxx/api/Acoes"; // Ajuste sua porta aqui
+const API_URL = "https://localhost:7xxx/api/Acoes";
 
 const getAuthHeader = () => {
     const token = localStorage.getItem('token');

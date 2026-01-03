@@ -20,7 +20,6 @@ export function Dashboard() {
     try {
       const token = localStorage.getItem('token');
       
-      // Enviando o token no header Authorization
       const response = await api.get('/api/Acoes/Listar', {
         headers: {
           Authorization: `Bearer ${token}`
@@ -52,7 +51,7 @@ export function Dashboard() {
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    setAcoes(response.data); // Atualiza a tabela com o resultado da busca
+    setAcoes(response.data); 
   } catch (err) {
     console.error(err);
     alert('Ação não encontrada ou erro na busca.');
@@ -62,7 +61,6 @@ export function Dashboard() {
 };
 
 const deletarAcao = async (id) => {
-  // 1. Pedir confirmação para o usuário
   if (!window.confirm("Tem certeza que deseja excluir esta ação?")) {
     return;
   }
@@ -70,8 +68,6 @@ const deletarAcao = async (id) => {
   try {
     const token = localStorage.getItem('token');
     
-    // 2. Chamar a API passando o ID como parâmetro de busca (Query String)
-    // De acordo com o Swagger, o nome da rota é: /api/Acoes/Deletar ações
     await api.delete('/api/Acoes/Deletar', {
       params: { id: id },
       headers: { Authorization: `Bearer ${token}` }
