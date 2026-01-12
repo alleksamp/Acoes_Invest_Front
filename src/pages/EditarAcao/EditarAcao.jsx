@@ -39,7 +39,6 @@ export function EditarAcao() {
       try {
         const token = localStorage.getItem('token');
         const response = await api.get(`/api/Acoes/BuscarId?id=${id}`, {
-          //params: { Id: id },
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -100,7 +99,7 @@ export function EditarAcao() {
                 text: 'Os dados foram salvos com sucesso.',
                 icon: 'success',
                 confirmButtonColor: '#3085d6'
-            }).then(() => navigate('/dashboard'));
+            }).then(() => navigate('/listagem'));
     } catch (err) {
       console.error(err);
 

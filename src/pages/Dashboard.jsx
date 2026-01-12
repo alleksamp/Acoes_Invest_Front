@@ -133,14 +133,15 @@ return (
         <div className="grid-options">
           <section className="card">
             <h2>Consultas</h2>
-            <button className="btn-option" onClick={buscarAcoes}>
-              {carregando ? 'Buscando...' : '🔍 Buscar Todas as Ações'}
+            <button className="btn-option" onClick={() => navigate('/listagem')}>
+              {carregando ? 'Buscando...' : '🔍 Visualizar carteira'}
             </button>
+
             <h2>Buscar por nome:</h2>
         <div className="search-group">
             <input 
                 type="text" 
-                placeholder="Digite o nome da ação..." 
+                placeholder="Digite o nome da ação desejada..." 
                 className="form-input"
                 value={nomeBusca}
                 onChange={(e) => setNomeBusca(e.target.value)}
@@ -152,14 +153,13 @@ return (
           </section>
 
           <section className="card">
-            <h2 style={{color: '#047857'}}>Operações</h2>
-            <button className="btn-option" onClick={() => navigate('/cadastrar')} style={{color: '#047857', fontWeight: 'bold'}}>
+            <h2 style={{color: '#000000'}}>Operações</h2>
+            <button className="btn-option" onClick={() => navigate('/cadastrar')} style={{color: '#000000',}}>
                 ➕ Cadastrar Nova Ação
             </button>
           </section>
         </div>
 
-        {/* TABELA DE RESULTADOS */}
         {acoes.length > 0 && (
           <div className="acoes-table-container">
             <h3>Lista de Ações Cadastradas</h3>

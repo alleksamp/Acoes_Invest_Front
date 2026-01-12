@@ -4,6 +4,7 @@ import { Dashboard } from './pages/Dashboard';
 import { ProtectedRoute } from './ProtectedRoute';
 import { CadastrarAcao } from './pages/CadastrarAcao/CadastrarAcao';
 import { EditarAcao } from './pages/EditarAcao/EditarAcao';
+import { ListagemAcoes } from './pages/BuscarTodasAcoes/ListagemAcoes';
 
 function App() {
   return (
@@ -36,6 +37,14 @@ function App() {
               <EditarAcao />
             </ProtectedRoute>
           } />
+
+        <Route 
+          path="/listagem" 
+          element={
+          <ProtectedRoute>
+            <ListagemAcoes/>
+          </ProtectedRoute>
+          } />  
 
         </Routes>
     </BrowserRouter>

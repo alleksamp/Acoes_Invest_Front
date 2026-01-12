@@ -1,79 +1,123 @@
-/* src/pages/LoginPage/LoginPage.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --invest-green: #10b981;
+  --invest-green-hover: #059669;
+  --dark-slate: #1e293b;
+  --text-gray: #64748b;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
 
 .login-container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f3f4f6; /* cinza claro */
+  height: 100vh;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-gradient);
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
 }
 
 .login-card {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    width: 24rem; /* w-96 */
+  background-color: #ffffff;
+  padding: 3rem 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .login-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    color: #2563eb; /* azul */
+  font-size: 1.85rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: var(--dark-slate);
+  letter-spacing: -0.025em;
+}
+
+.login-card::after {
+  content: "Acesse sua conta para gerenciar seus ativos";
+  display: block;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-gray);
+  margin-bottom: 2rem;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-label {
-    display: block;
-    color: #374151;
-    font-size: 0.875rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+  display: block;
+  color: #475569;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  padding-left: 2px;
 }
 
 .form-input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.25rem;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: var(--dark-slate);
+  transition: all 0.2s ease;
+  background-color: #fbfcfd;
 }
 
 .form-input:focus {
-    outline: none;
-    range: 2px;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  outline: none;
+  border-color: var(--invest-green);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
 }
 
 .error-message {
-    color: #ef4444;
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  background: #fef2f2;
+  padding: 8px;
+  border-radius: 6px;
 }
 
 .btn-login {
-    width: 100%;
-    background-color: #2563eb;
-    color: #ffffff;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 0.25rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 100%;
+  background-color: var(--invest-green);
+  color: #ffffff;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
 }
 
 .btn-login:hover {
-    background-color: #1d4ed8;
+  background-color: var(--invest-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+}
+
+.btn-login:active {
+  transform: translateY(0);
 }
 
 .btn-login:disabled {
-    background-color: #9ca3af;
-    cursor: not-allowed;
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
