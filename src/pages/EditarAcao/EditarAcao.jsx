@@ -59,7 +59,7 @@ export function EditarAcao() {
                     text: 'Não foi possível carregar os dados desta ação.',
                     icon: 'error',
                     confirmButtonText: 'Voltar'
-                }).then(() => navigate('/dashboard'));
+                }).then(() => navigate('/listagem'));
       }
     };
     buscarDados();
@@ -137,7 +137,7 @@ export function EditarAcao() {
             <button type="submit" className="btn-salvar" disabled={carregando}>
               {carregando ? 'Salvando...' : 'Atualizar Dados'}
             </button>
-            <button type="button" className="btn-cancelar" onClick={() => navigate('/dashboard')}>
+            <button type="button" className="btn-cancelar" onClick={() => navigate('/listagem')}>
               Cancelar
             </button>
           </div>

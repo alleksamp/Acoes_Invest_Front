@@ -126,7 +126,7 @@ useEffect(() => {
             <button type="submit" className="btn-salvar" disabled={carregando}>
               {carregando ? 'Enviando...' : 'Confirmar Cadastro'}
             </button>
-            <button type="button" className="btn-cancelar" onClick={() => navigate('/dashboard')}>
+            <button type="button" className="btn-cancelar" onClick={() => navigate('/listagem')}>
               Voltar
             </button>
           </div>

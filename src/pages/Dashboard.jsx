@@ -84,8 +84,8 @@ const deletarAcao = async (id) => {
         text: "Você não poderá reverter esta ação!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33', // Vermelho para deletar
-        cancelButtonColor: '#3085d6', // Azul para cancelar
+        confirmButtonColor: '#d33', 
+        cancelButtonColor: '#3085d6', 
         confirmButtonText: 'Sim, excluir!',
         cancelButtonText: 'Cancelar'
     }).then(async (result) => {
@@ -150,13 +150,6 @@ return (
                 🔎 Buscar
             </button>
         </div>
-          </section>
-
-          <section className="card">
-            <h2 style={{color: '#000000'}}>Operações</h2>
-            <button className="btn-option" onClick={() => navigate('/cadastrar')} style={{color: '#000000',}}>
-                ➕ Cadastrar Nova Ação
-            </button>
           </section>
         </div>
 

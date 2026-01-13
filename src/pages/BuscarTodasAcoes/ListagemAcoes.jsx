@@ -8,6 +8,7 @@ export function ListagemAcoes() {
     const [acoes, setAcoes] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const navigate = useNavigate();
+    const [nomeBusca, setNomeBusca] = useState('');
 
     const carregarTudo = async () => {
         try {
@@ -22,8 +23,43 @@ export function ListagemAcoes() {
             setCarregando(false);
         }
     };
-
     useEffect(() => { carregarTudo(); }, []);
+
+    const buscarPorNome = async () => {
+        if (!nomeBusca.trim()) {
+              Swal.fire({
+                title: 'Campo Vazio',
+                text: 'Por favor, digite um nome para buscar.',
+                icon: 'warning',
+                confirmButtonColor: '#3085d6'
+            });
+        return;
+        } 
+    
+      setCarregando(true);
+        try {
+        const token = localStorage.getItem('token');
+        
+        // O Axios enviará como Query String: /api/Acoes/Buscar por nome?nome=Itausa
+        const response = await api.get('/api/Acoes/BuscarNome', {
+          params: { nome: nomeBusca }, // O Axios monta o ?nome=... para você
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setAcoes(response.data); 
+      } catch (err) {
+    
+        console.error(err);
+              Swal.fire({
+                title: 'Não encontrado',
+                text: 'Nenhuma ação foi encontrada com esse nome.',
+                icon: 'error',
+                confirmButtonColor: '#3085d6'
+            });
+    
+      } finally {
+        setCarregando(false);
+      }
+    };
 
     const deletarAcao = async (id) => {
         Swal.fire({
@@ -67,7 +103,8 @@ export function ListagemAcoes() {
                     <h1>💰 Meu Patrimônio</h1>
                     <p>Visão geral de todos os seus investimentos ativos</p>
                 </div>
-                <button className="btn-voltar" onClick={() => navigate('/dashboard')}>Voltar ao Dashboard</button>
+                <button className="btn-voltar" onClick={() => navigate('/dashboard')}>Voltar ao Dashboard                   
+                </button>
             </header>
 
             <div className="resumo-grid">
@@ -122,9 +159,28 @@ export function ListagemAcoes() {
                                 </td>
                             </tr>
                         ))}
+
                     </tbody>
-                </table>
-            </div>
+                </table>  
+                        <div className="search-group">
+                        <button className="btn-option" onClick={() => navigate('/cadastrar')} style={{color: '#000000',}}>
+                            ➕ Cadastrar Nova Ação
+                        </button>
+                            <input 
+                                type="text" 
+                                placeholder="Digite o nome da ação desejada..." 
+                                className="form-input"
+                                value={nomeBusca}
+                                onChange={(e) => setNomeBusca(e.target.value)}
+                            />
+                            <button className="btn-search" onClick={buscarPorNome}>
+                                🔎 Buscar
+                            </button>
+                            <button type="button" className="btn-voltar" onClick={() => {setNomeBusca(''); carregarTudo();}}>                           
+                                Voltar
+                            </button>
+                        </div>           
+                        </div> 
         </div>
     );
 }
