@@ -40,7 +40,6 @@ const handleLogin = async (e) => {
       } catch (err) {
         console.error(err);
         
-        // Alerta de Erro (Substituindo o setErro ou complementando-o)
         Swal.fire({
           title: 'Falha no Login',
           text: err.response?.data?.message || 'E-mail ou senha incorretos.',
@@ -58,7 +57,7 @@ const handleLogin = async (e) => {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2 className="login-title">Ações Invest</h2>
+        <h2>Ações Invest</h2>
         
         <form onSubmit={handleLogin}>
           <div className="form-group">
@@ -92,8 +91,12 @@ const handleLogin = async (e) => {
           >
             {carregando ? 'Entrando...' : 'Entrar'}
           </button>
+          <div className='msg'>
+            <p className='msg1' >Não possui uma conta?</p>
+            <p className='msg2' onClick={() => navigate ('/cadastrarUsuario')} > Cadastre-se </p>
+          </div>
         </form>
-      </div>
+      </div>      
     </div>
   );
 };

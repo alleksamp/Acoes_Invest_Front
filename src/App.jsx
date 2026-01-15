@@ -5,6 +5,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { CadastrarAcao } from './pages/CadastrarAcao/CadastrarAcao';
 import { EditarAcao } from './pages/EditarAcao/EditarAcao';
 import { ListagemAcoes } from './pages/BuscarTodasAcoes/ListagemAcoes';
+import { CadastroUsuario } from './pages/CadastrarUsuario/CadastrarUsuario';
 
 function App() {
   return (
@@ -45,6 +46,12 @@ function App() {
             <ListagemAcoes/>
           </ProtectedRoute>
           } />  
+
+        <Route 
+          path="/cadastrarUsuario" 
+          element={
+            <CadastroUsuario/>
+          } /> 
 
         </Routes>
     </BrowserRouter>

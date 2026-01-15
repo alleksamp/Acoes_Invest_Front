@@ -30,6 +30,12 @@
   border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
+.login-card h2 {
+  color: #000000;
+  text-align: center;
+  font-size: 2rem;
+}
+
 .login-title {
   font-size: 1.85rem;
   font-weight: 800;
@@ -40,7 +46,6 @@
 }
 
 .login-card::after {
-  content: "Acesse sua conta para gerenciar seus ativos";
   display: block;
   text-align: center;
   font-size: 0.9rem;
@@ -49,7 +54,7 @@
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.0rem;
 }
 
 .form-label {
@@ -120,4 +125,23 @@
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+.msg {
+  display: flex;
+}
+
+.msg1 {
+  color: #475569;
+}
+
+.msg2 {
+  color: #475569;
+  margin-left: 8rem;
+  text-decoration: underline;
+}
+
+.msg2:hover {
+  cursor: pointer;
+  text-shadow: 2px 2px 5px gray;
 }

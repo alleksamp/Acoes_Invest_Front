@@ -1,0 +1,115 @@
+.cadastro-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    padding: 20px;
+}
+
+.cadastro-card {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.cadastro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 1rem;
+    max-width: 450px;
+    padding: 1.5 rem 2rem;
+}
+
+.cadastro-header h2 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.8rem;
+    text-align: center;
+    width: 100%;
+}
+
+.form-group-usuario {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-usuario label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2c333d;
+}
+
+.cadastro-card .form-group-usuario input,
+.cadastro-card .form-group-usuario input[type="text"],
+.cadastro-card .form-group-usuario input[type="email"],
+.cadastro-card .form-group-usuario input[type="password"] {
+    background-color: #cbd5e1 !important; 
+    border: 1px solid #94a3b8 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    font-size: 1rem !important;
+    color: #1e293b !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
+}
+
+.form-group-usuario input:-webkit-autofill,
+.form-group-usuario input:-webkit-autofill:hover, 
+.form-group-usuario input:-webkit-autofill:focus, 
+.form-group-usuario input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #cbd5e1 inset !important; 
+    -webkit-text-fill-color: #1e293b !important; 
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.form-group-usuario input::placeholder {
+    color: #36383a !important; 
+    opacity: 1 !important;
+}
+
+.form-group-usuario input:focus {
+    outline: none;
+    border-color: #0cf16c;
+}
+
+.acoes-form {
+    display: flex;
+    gap: 12px;
+    margin-top: 2rem;
+}
+
+.btn-salvar {
+    flex: 2;
+    background-color: #10b981; 
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cancelar {
+    flex: 1;
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-salvar:hover { background-color: #059669; }
+.btn-cancelar:hover { background-color: #e2e8f0; }

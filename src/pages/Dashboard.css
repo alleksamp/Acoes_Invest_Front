@@ -9,12 +9,19 @@
   --border-light: #e2e8f0;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; 
+}
+
 .dashboard-header h1 {
     color: #000000;
 }
 
 .card h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 0.80rem;
+    margin-top: 0rem;
     font-size: 1.25rem;
     color: #000000;
 }
@@ -36,10 +43,12 @@
     display: flex;
     flex-direction: column;
     padding: 2rem;
-    max-width: 100%
+    max-width: 100%;
+    margin-top: 10px
 }
 
 .dashboard-header {
+    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -48,6 +57,12 @@
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     margin-bottom: 2rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+    
 }
 
 .btn-logout {
@@ -58,11 +73,16 @@
     cursor: pointer;
 }
 
+.btn-logout:hover {
+    background-color: rgb(230, 218, 218);
+}
+
 .grid-options {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
+    margin-top: 10rem;
 }
 
 .card {
@@ -138,34 +158,4 @@
     border: 1px solid #d1d5db;
     border-radius: 6px;
     font-size: 14px;
-}
-
-.btn-search {
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-.btn-search:hover {
-    background-color: #2563eb;
-}
-
-.btn-excluir{
-    color:#dc2626;
-}
-
-.btn-excluir:hover{
-    background-color: #d1d5db;
-}
-
-.btn-editar{
-    color: #faf601;
-}
-
-.btn-editar:hover{
-    background-color: #d1d5db;
 }

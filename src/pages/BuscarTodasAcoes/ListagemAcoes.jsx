@@ -176,7 +176,7 @@ export function ListagemAcoes() {
                             <button className="btn-search" onClick={buscarPorNome}>
                                 🔎 Buscar
                             </button>
-                            <button type="button" className="btn-voltar" onClick={() => {setNomeBusca(''); carregarTudo();}}>                           
+                            <button type="button" className="btn-voltar2" onClick={() => {setNomeBusca(''); carregarTudo();}}>                           
                                 Voltar
                             </button>
                         </div>           
