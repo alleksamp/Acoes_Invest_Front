@@ -1,0 +1,112 @@
+.market-trends-container {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 30px;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin: 20px auto;
+    max-width: 1200px;
+    box-sizing: border-box;
+    width: 90%;
+}
+
+.trends-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.trend-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.trend-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.trend-title.altas { color: #1e293b; }
+.trend-title.altas span { color: #10b981; } 
+
+.trend-title.baixas { color: #1e293b; }
+.trend-title.baixas span { color: #ef4444; }
+
+.trend-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.ticker { font-weight: 700; color: #334155; }
+.change.positive { color: #10b981; font-weight: 600; }
+.change.negative { color: #ef4444; font-weight: 600; }
+.price { color: #64748b; font-size: 0.9rem; }
+
+@media (max-width: 768px) {
+    .market-trends-container { grid-template-columns: 1fr; }
+}
+
+.ibov-card {
+    border-right: 1px solid #f1f5f9;
+    padding-right: 20px;
+}
+
+.ibov-card h3{
+    color: #000000;
+    font-size: 1.5rem;
+    margin-top: 0rem;
+}
+
+.points {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1e293b;
+    display: block;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.badge.up { background: #dcfce7; color: #166534; }
+.badge.down { background: #fee2e2; color: #991b1b; }
+
+.trends-grid {
+    flex: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.ibov-data {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.chart-container {
+    width: 100%;
+    height: 150px;
+    margin-top: 20px;
+}
+
+.grafico-petra {
+    color: #000000;
+
+}
+
+@media (max-width: 900px) {
+    .market-trends-container { grid-template-columns: 1fr; }
+    .ibov-card { border-right: none; border-bottom: 1px solid #f1f5f9; padding-bottom: 20px; }
+}

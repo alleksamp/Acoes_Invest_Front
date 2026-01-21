@@ -22,7 +22,7 @@ const handleLogin = async (e) => {
       senha: senha
       });
 
-      const { token } = response.data;
+      const { token, nomeUsuario } = response.data;
       localStorage.setItem('token', token);
 
       Swal.fire({
