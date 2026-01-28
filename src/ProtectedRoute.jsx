@@ -1,9 +1,8 @@
 import { Navigate } from 'react-router-dom';
 
 export const ProtectedRoute = ({ children }) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('@AcoesInvest:token');
 
-    // Se não tiver token, redireciona para a página de login
     if (!token) {
         return <Navigate to="/" />;
     }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import './CadastrarAcao.css';
 import Swal from 'sweetalert2';
+import { acaoService } from '../../services/acaoService';
 
 const formatarMoeda = (valor) => {
     if (valor === undefined || valor === null || valor === "") return "R$ 0,00";
@@ -43,9 +44,7 @@ useEffect(() => {
     e.preventDefault();
     setCarregando(true);
 
-    try {
-      const token = localStorage.getItem('token');
-      
+    try {      
       const novaAcao = {
         nome: nome,
         quantidade: parseInt(quantidade),
@@ -55,9 +54,7 @@ useEffect(() => {
         totalInv: converterParaDecimal(totalInv)
       };
 
-      await api.post('/api/Acoes/Cadastrar', novaAcao, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await acaoService.cadastrar(novaAcao);
 
       Swal.fire({
         title: 'Sucesso!',

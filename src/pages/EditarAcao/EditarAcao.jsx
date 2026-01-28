@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import '../CadastrarAcao/CadastrarAcao.css'; 
 import Swal from 'sweetalert2';
+import { acaoService } from '../../services/acaoService';
 
     const formatarMoeda = (valor) => {
         if (valor === undefined || valor === null || valor === "") return "R$ 0,00";
@@ -37,12 +38,9 @@ export function EditarAcao() {
     const buscarDados = async () => {
         if (!id || id === "${id}") return;
       try {
-        const token = localStorage.getItem('token');
-        const response = await api.get(`/api/Acoes/BuscarId?id=${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-
+        const response = await acaoService.buscarPorId(id);
         const acao = response.data;
+
         console.log("Dados carregados:", acao);
 
         setNome(acao.nome || acao.Nome || "");
@@ -90,9 +88,7 @@ export function EditarAcao() {
         TotalInv: converterParaDecimal(totalInv)
       };
 
-      await api.put('/api/Acoes/Atualizar', dadosAtualizados, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await acaoService.atualizar(dadosAtualizados);
 
             Swal.fire({
                 title: 'Atualizado!',

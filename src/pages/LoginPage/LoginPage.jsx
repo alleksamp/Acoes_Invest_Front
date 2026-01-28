@@ -17,13 +17,16 @@ const handleLogin = async (e) => {
   setErro('');
 
   try {
-    const response = await api.post('/api/Login/login', {
+    const response = await api.post('/Login/login', {
       email: email,
       senha: senha
       });
 
+      console.log("Resposta da API:", response.data);
+
       const { token, nomeUsuario } = response.data;
-      localStorage.setItem('token', token);
+      localStorage.setItem('@AcoesInvest:token', token);
+      localStorage.setItem('@AcoesInvest:userName', nomeUsuario);
 
       Swal.fire({
           title: 'Bem-vindo!',

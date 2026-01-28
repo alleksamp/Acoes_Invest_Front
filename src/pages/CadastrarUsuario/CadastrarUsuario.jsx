@@ -17,7 +17,7 @@ export function CadastroUsuario() {
         setCarregando(true);
 
         try {
-            await api.post('/api/Usuarios/Cadastrar', {
+            await api.post('/Usuarios/Cadastrar', {
                 nome: nome,
                 email: email,
                 senha: senha

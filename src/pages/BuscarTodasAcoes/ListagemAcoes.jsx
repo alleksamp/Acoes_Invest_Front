@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../api/api';
 import Swal from 'sweetalert2';
 import './ListagemAcoes.css';
+import { acaoService } from '../../services/acaoService';
 
 export function ListagemAcoes() {
     const [acoes, setAcoes] = useState([]);
@@ -12,11 +13,15 @@ export function ListagemAcoes() {
 
     const carregarTudo = async () => {
         try {
-            const token = localStorage.getItem('token');
-            const response = await api.get('/api/Acoes/Listar', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            setCarregando(true);
+            const response = await acaoService.buscarTodas();
+
+            if (Array.isArray(response.data)) {
             setAcoes(response.data);
+        } else {
+            console.error("A API não retornou um array:", response.data);
+            setAcoes([]); 
+        }
         } catch (err) {
             Swal.fire('Erro', 'Não foi possível carregar o patrimônio.', 'error');
         } finally {
@@ -37,15 +42,9 @@ export function ListagemAcoes() {
         } 
     
       setCarregando(true);
-        try {
-        const token = localStorage.getItem('token');
-        
-        // O Axios enviará como Query String: /api/Acoes/Buscar por nome?nome=Itausa
-        const response = await api.get('/api/Acoes/BuscarNome', {
-          params: { nome: nomeBusca }, // O Axios monta o ?nome=... para você
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setAcoes(response.data); 
+        try {        
+            const response = await acaoService.buscarPorNome(nomeBusca);
+            setAcoes(response.data); 
       } catch (err) {
     
         console.error(err);
@@ -74,11 +73,8 @@ export function ListagemAcoes() {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const token = localStorage.getItem('token');
-                    await api.delete('/api/Acoes/Deletar', {
-                        params: { id: id },
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
+                    await acaoService.deletar(id);
+
                     Swal.fire('Excluído!', 'A ação foi deletada com sucesso.', 'success');
                     carregarTudo(); 
                 } catch (err) {
@@ -92,7 +88,10 @@ export function ListagemAcoes() {
     const totalDividendos = acoes.reduce((acc, curr) => acc + (curr.dividendos || 0), 0);
     const totalAtivos = acoes.length;
 
-    const formatar = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const formatar = (v) => {
+    const valorSaneado = v || 0;
+    return valorSaneado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        };
 
     if (carregando) return <div className="loading">Carregando Ativos...</div>;
 
@@ -137,12 +136,12 @@ export function ListagemAcoes() {
                     <tbody>
                         {acoes.map(acao => (
                             <tr key={acao.id || acao.Id}>
-                                <td className="ticker">{acao.nome}</td>
-                                <td>{acao.quantidade}</td>
-                                <td>{formatar(acao.pm)}</td>
-                                <td>{formatar(acao.pmIr)}</td>
-                                <td className="div-yield">{formatar(acao.dividendos)}</td>
-                                <td>{formatar(acao.totalInv)}</td>
+                                <td className="ticker">{acao.nome || acao.Nome}</td>
+                                <td>{acao.quantidade || acao.Quantidade}</td>
+                                <td>{formatar(acao.pm || acao.Pm)}</td>
+                                <td>{formatar(acao.pmIr || acao.PmIr)}</td>
+                                <td className="div-yield">{formatar(acao.dividendos || acao.Dividendos)}</td>
+                                <td>{formatar(acao.totalInv || acao.TotalInv)}</td>
                                 <td>
                                     <div className="action-buttons">
                                         <button 
